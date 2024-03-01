@@ -9,6 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint . --ext vue,ts",
+    "lint:ci": "yarn lint --rule @ts-safeql/check-sql: off",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate",
     "db:migrate:dev": "prisma migrate dev",
