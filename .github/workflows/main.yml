@@ -21,7 +21,7 @@ jobs:
         with:
           cmd: install
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PKG_TOKEN }}
     
       - name: Run ESLint
         uses: borales/actions-yarn@v5
