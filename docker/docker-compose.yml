@@ -1,0 +1,15 @@
+version: '3.6'
+services:
+  pgDB:
+    image: postgis/postgis:13-3.1-alpine
+    restart: always
+    ports:
+      - '9876:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: readconquista
+volumes:
+  db_data:

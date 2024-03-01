@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("NUXT_DATABASE_URL")
+  extensions = [postgis]
+}
+
+model LocalGovernmentArea {
+  id               String         @id @default(uuid())
+  name             String
+  libraryService   LibraryService @relation(fields: [libraryServiceId], references: [id])
+  libraryServiceId String
+}
+
+model LibraryService {
+  id        String                @id @default(uuid())
+  name      String
+  lgas      LocalGovernmentArea[]
+  libraries Library[]
+}
+
+model Library {
+  id               String                                @id @default(uuid())
+  name             String
+  suburb           String
+  location         Unsupported("geography(Point, 4326)")
+  libraryService   LibraryService                        @relation(fields: [libraryServiceId], references: [id])
+  libraryServiceId String
+}
+
+model User {
+  id           String         @id @default(uuid())
+  username     String         @unique
+  email        String         @unique
+  password     String // stored as an `argon2` hash
+  role         Role
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  RefreshToken RefreshToken[]
+}
+
+model RefreshToken {
+  id          String   @id @unique @default(uuid())
+  hashedToken String
+  user        User     @relation(fields: [userId], references: [id])
+  revoked     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+}
+
+enum Role {
+  USER
+  ADMIN
+}
