@@ -27,3 +27,5 @@ jobs:
         uses: borales/actions-yarn@v5
         with:
           cmd: lint
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PKG_TOKEN }}
