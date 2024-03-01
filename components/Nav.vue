@@ -1,7 +1,7 @@
 <template>
     <header>
         <nav
-            class="flex flex-row max-w-screen-xl py-8 px-8 mx-auto items-center justify-between"
+            class="flex flex-row max-w-screen-xl py-8 px-8 mx-auto items-center self-center justify-between"
         >
             <div>
                 <a href="/">
