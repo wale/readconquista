@@ -12,4 +12,4 @@ The source code of the Readconquista site itself is written with [NuxtJS 3](http
 [to be announced]
 
 ## License
-The source included in this project is licensed under the [Zlib license](https://github.com/wale/readconquista/blob/main/LICENCE)
+The source included in this project is licensed under the [Zlib license](https://github.com/wale/readconquista/blob/main/LICENCE), due to technological and legal restrictions on certain packages and source included in this project.
