@@ -5,7 +5,7 @@ on:
 
 jobs:
   lint:
-    name: Run ESLint
+    name: Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +20,8 @@ jobs:
         uses: borales/actions-yarn@v5
         with:
           cmd: install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
       - name: Run ESLint
         uses: borales/actions-yarn@v5
