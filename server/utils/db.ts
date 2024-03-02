@@ -3,7 +3,7 @@
 
 import { PrismaClient, type LibraryService } from "@prisma/client";
 
-import type { Library } from "./types/library";
+import type { Library } from "../../utils/types/library";
 
 const prisma = new PrismaClient().$extends({
     model: {

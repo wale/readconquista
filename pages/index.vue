@@ -3,7 +3,6 @@
         title="Readconquista"
         description="Library card collection for Melbourne, AU"
     >
-        <Nav />
         <Hero />
     </Layout>
 </template>

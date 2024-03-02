@@ -1,7 +1,10 @@
 <template>
-    <body class="bg-grayscale-300 text-grayscale-950">
+    <div
+        class="flex flex-col flex-grow h-screen bg-grayscale-300 text-grayscale-950"
+    >
+        <Nav />
         <slot />
-    </body>
+    </div>
 </template>
 
 <script setup lang="ts">

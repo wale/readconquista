@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex h-full items-center justify-center flex-col gap-4 md:gap-8 pt-24"
+        class="flex h-full items-center justify-center flex-col gap-4 md:gap-8"
     >
         <h1 class="text-4xl md:text-7xl font-black">Readconquista</h1>
         <h3 class="text-lg md:text-3xl font-medium">

@@ -2,9 +2,9 @@ import * as argon2 from "argon2";
 import { v4 } from "uuid";
 import { z } from "zod";
 
-import db from "~/utils/db";
-import { generateTokens } from "~/utils/jwt";
-import { addRefreshToken } from "~/utils/refreshToken";
+import db from "~/server/utils/db";
+import { generateTokens } from "~/server/utils/jwt";
+import { addRefreshToken } from "~/server/utils/refreshToken";
 
 const schema = z.object({
     username: z.string().min(3).optional(),

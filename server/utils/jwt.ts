@@ -3,19 +3,19 @@ import jwt from "jsonwebtoken";
 
 import crypto from "node:crypto";
 
-const runtimeConfig = useRuntimeConfig();
-
 export function hashToken(token: string) {
     return crypto.createHash("sha512").update(token).digest("hex");
 }
 
 export function generateAccessToken(user: User): string {
+    const runtimeConfig = useRuntimeConfig();
     return jwt.sign({ userId: user.id }, runtimeConfig.jwtAccessSecret, {
         expiresIn: "5m",
     });
 }
 
 export function generateRefreshToken(user: User, jti: string) {
+    const runtimeConfig = useRuntimeConfig();
     return jwt.sign(
         {
             userId: user.id,
