@@ -1,42 +1,76 @@
 import { defineStore } from "pinia";
 
+interface RequestState {
+    loading: boolean;
+    error: Error | null;
+}
+
+interface UserState {
+    id: string;
+    username: string;
+    email: string;
+    accessToken: string;
+    refreshToken: string;
+}
+
 export const useAuthStore = defineStore("auth", {
     state: () => ({
-        accessToken: "",
-        refreshToken: "",
-        username: "",
-        email: "",
-        authenticated: false,
+        user: {} as UserState,
     }),
     actions: {
-        async login(password: string, username?: string, email?: string) {
-            const { data } = await useFetch("/api/auth/login", {
-                method: "post",
-                headers: { "Content-Type": "application/json" },
-                body: {
-                    password,
-                    username,
-                    email,
-                },
-            });
+        async login(
+            password: string,
+            username?: string,
+            email?: string,
+        ): Promise<{ data: UserState; requestState: RequestState }> {
+            const requestState: RequestState = {
+                loading: true,
+                error: null,
+            };
 
-            if (data.value) {
-                this.$state.accessToken = data.value.accessToken;
-                this.$state.refreshToken = data.value.refreshToken;
-                this.$state.username = data.value.username;
-                this.$state.email = data.value.email;
+            if (username === "")
+                try {
+                    const data: UserState = await $fetch("/api/auth/login", {
+                        method: "post",
+                        headers: { "Content-Type": "application/json" },
+                        body: {
+                            password,
+                            email,
+                        },
+                    });
+                    requestState.loading = false;
+                    return { data, requestState };
+                } catch (error) {
+                    requestState.loading = false;
+                    requestState.error = error as Error;
+                    return { data: {} as UserState, requestState };
+                }
 
-                this.authenticated = true;
-            }
+            if (email === "")
+                try {
+                    const data: UserState = await $fetch("/api/auth/login", {
+                        method: "post",
+                        headers: { "Content-Type": "application/json" },
+                        body: {
+                            username,
+                            password,
+                        },
+                    });
+
+                    requestState.loading = false;
+                    return { data, requestState };
+                } catch (error) {
+                    requestState.loading = false;
+                    requestState.error = error as Error;
+                    return { data: {} as UserState, requestState };
+                }
+            return { data: {} as UserState, requestState };
         },
-        async logout() {
-            await revokeTokensByIdentifier({ email: this.$state.email });
 
-            this.$state.accessToken = "";
-            this.$state.refreshToken = "";
-            this.$state.username = "";
-            this.$state.email = "";
-            this.authenticated = false;
+        async logout() {
+            await revokeTokensByIdentifier({ email: this.user.email });
+
+            this.user = {} as UserState;
         },
     },
 });

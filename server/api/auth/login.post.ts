@@ -1,3 +1,4 @@
+import { type User } from "@prisma/client";
 import * as argon2 from "argon2";
 import { v4 } from "uuid";
 import { z } from "zod";
@@ -20,47 +21,83 @@ export default defineEventHandler(async (event) => {
     // eslint-disable-next-line @typescript-eslint/no-throw-literal
     if (!result.success) throw result.error.issues;
 
-    const byUser = await db.user.findFirst({
-        where: {
-            OR: [
-                {
-                    username: result.data.username,
-                },
-                {
-                    email: result.data.email,
-                },
-            ],
-        },
-    });
+    let byUser: User | null;
 
-    if (byUser === null)
-        throw createError({
-            statusCode: 403,
-            statusMessage: "No user found with that email/username.",
+    if (result.data.username === "" || result.data.username === undefined) {
+        byUser = await db.user.findFirst({
+            where: {
+                email: result.data.email,
+            },
         });
-    else {
-        // Check if the password matches
-        const validPassword = await argon2.verify(
-            byUser.password,
-            result.data.password,
-        );
 
-        if (!validPassword)
+        if (byUser === null)
             throw createError({
                 statusCode: 403,
-                statusMessage: "Invalid password.",
+                statusMessage: "No user found with that email/username.",
             });
+        else {
+            // Check if the password matches
+            const validPassword = await argon2.verify(
+                byUser.password,
+                result.data.password,
+            );
 
-        const jti = v4();
-        const { accessToken, refreshToken } = generateTokens(byUser, jti);
-        await addRefreshToken(jti, refreshToken, byUser);
+            if (!validPassword)
+                throw createError({
+                    statusCode: 403,
+                    statusMessage: "Invalid password.",
+                });
 
-        return {
-            id: byUser.id,
-            username: byUser.username,
-            email: byUser.email,
-            accessToken,
-            refreshToken,
-        };
+            const jti = v4();
+            const { accessToken, refreshToken } = generateTokens(byUser, jti);
+            await addRefreshToken(jti, refreshToken, byUser);
+
+            return {
+                id: byUser.id,
+                username: byUser.username,
+                email: byUser.email,
+                accessToken,
+                refreshToken,
+            };
+        }
+    }
+
+    if (result.data.email === "" || result.data.email === undefined) {
+        byUser = await db.user.findFirst({
+            where: {
+                username: result.data.username,
+            },
+        });
+
+        if (byUser === null)
+            throw createError({
+                statusCode: 403,
+                statusMessage: "No user found with that email/username.",
+            });
+        else {
+            // Check if the password matches
+            const validPassword = await argon2.verify(
+                byUser.password,
+                result.data.password,
+            );
+
+            if (!validPassword)
+                throw createError({
+                    statusCode: 403,
+                    statusMessage: "Invalid password.",
+                });
+
+            const jti = v4();
+            const { accessToken, refreshToken } = generateTokens(byUser, jti);
+            await addRefreshToken(jti, refreshToken, byUser);
+
+            return {
+                id: byUser.id,
+                username: byUser.username,
+                email: byUser.email,
+                accessToken,
+                refreshToken,
+            };
+        }
     }
 });

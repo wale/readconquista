@@ -1,15 +1,9 @@
 import { storeToRefs } from "pinia";
 
 export default defineNuxtRouteMiddleware((to) => {
-    const { authenticated } = storeToRefs(useAuthStore());
-    const token = useCookie("token");
+    const { user } = storeToRefs(useAuthStore());
 
-    if (token.value) authenticated.value = true;
+    console.log(user.value);
 
-    if (token.value && to.name === "login") return navigateTo("/");
-
-    if (!token.value && to.name !== "login") {
-        abortNavigation();
-        return navigateTo("/login");
-    }
+    if (to.fullPath === "/login" && user.value.id) return navigateTo("/");
 });

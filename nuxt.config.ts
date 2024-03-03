@@ -16,5 +16,5 @@ export default defineNuxtConfig({
   },
 
   css: ['@wale/general-sans', '~/assets/css/main.css'],
-  modules: ["@nuxt/image"]
+  modules: ["@nuxt/image", "@pinia/nuxt"]
 });

@@ -16,6 +16,7 @@
     "db:format": "prisma format"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
     "@prisma/client": "5.9.1",
     "@wale/general-sans": "^1.0.0",
     "argon2": "^0.40.1",
