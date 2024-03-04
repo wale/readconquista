@@ -8,9 +8,9 @@ import { generateTokens } from "~/server/utils/jwt";
 import { addRefreshToken } from "~/server/utils/refreshToken";
 
 const schema = z.object({
-    username: z.string().min(3).optional(),
-    password: z.string().min(8),
-    email: z.string().email().min(5).optional(),
+    username: z.string().optional(),
+    password: z.string(),
+    email: z.string().email().optional(),
 });
 
 export default defineEventHandler(async (event) => {
