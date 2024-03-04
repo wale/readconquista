@@ -70,8 +70,11 @@
                         Log In
                     </button>
                 </div>
-                <div v-if="error" class="mt-2 flex flex-row">
-                    <span class="text-red-500 font-bold">{{ error }}</span>
+                <div v-if="error" class="mt-2 flex flex-row justify-center">
+                    <span class="text-red-500 font-bold"
+                        >{{ error.statusCode }} -
+                        {{ error.statusMessage }}</span
+                    >
                 </div>
             </form>
         </div>
