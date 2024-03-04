@@ -82,9 +82,9 @@
 import { ref } from "vue";
 
 import { useAuthStore } from "~/utils/authStore";
-// import { pinia } from "~/utils/pinia";
+import { pinia } from "~/utils/pinia";
 
-const userStore = useAuthStore();
+const userStore = useAuthStore(pinia);
 
 // Check if the user has selected username or email
 const formIsEmail = ref(false);

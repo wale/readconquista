@@ -32,7 +32,12 @@
                     <ul
                         class="absolute -right-1 md:-top-6 text-grayscale-950 rounded-md bg-grayscale-400 md:bg-inherit pl-8 pr-4 mt-4 md:pl-0 md:pr-0 md:m-0 md:flex md:flex-row text-right"
                     >
-                        <li>
+                        <li v-if="user.id">
+                            <span class="md:p-4 py-2 block font-bold">{{
+                                user.email
+                            }}</span>
+                        </li>
+                        <li v-else>
                             <a href="/login" class="md:p-4 py-2 block">Login</a>
                         </li>
                         <li>
@@ -54,7 +59,12 @@
 </template>
 
 <script setup>
+import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
+import { useAuthStore } from "~/utils/authStore";
+
 const show = ref(false);
+
+const { user } = storeToRefs(useAuthStore(pinia));
 </script>

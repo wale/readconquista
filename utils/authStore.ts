@@ -39,6 +39,7 @@ export const useAuthStore = defineStore("auth", {
                         },
                     });
                     requestState.loading = false;
+                    this.user = data;
                     return { data, requestState };
                 } catch (error) {
                     requestState.loading = false;
@@ -58,6 +59,7 @@ export const useAuthStore = defineStore("auth", {
                     });
 
                     requestState.loading = false;
+                    this.user = data;
                     return { data, requestState };
                 } catch (error) {
                     requestState.loading = false;
