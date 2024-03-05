@@ -6,7 +6,7 @@
             <h2 class="text-3xl md:text-5xl font-black">Login</h2>
             <h3
                 v-if="formIsEmail === true"
-                class="underline underline-offset-4 decoration-grayscale-800 font-light text-lg md:text-xl text-grayscale-800 cursor-pointer"
+                class="underline underline-offset-4 decoration-grayscale-800 font-light text-lg text-grayscale-800 cursor-pointer"
                 @click="formIsEmail = !formIsEmail"
             >
                 Using a username?
