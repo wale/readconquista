@@ -74,5 +74,35 @@ export const useAuthStore = defineStore("auth", {
 
             this.user = {} as UserState;
         },
+
+        async register(
+            password: string,
+            username: string,
+            email: string,
+        ): Promise<{ data: UserState; requestState: RequestState }> {
+            const requestState: RequestState = {
+                loading: true,
+                error: null,
+            };
+
+            try {
+                const data: UserState = await $fetch("/api/auth/register", {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: {
+                        password,
+                        username,
+                        email,
+                    },
+                });
+                requestState.loading = false;
+                this.user = data;
+                return { data, requestState };
+            } catch (error) {
+                requestState.loading = false;
+                requestState.error = error as Error;
+                return { data: {} as UserState, requestState };
+            }
+        },
     },
 });

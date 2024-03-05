@@ -30,7 +30,7 @@
                     class="relative md:pb-0 md:pt-0 md:flex md:flex-row"
                 >
                     <ul
-                        class="absolute -right-1 md:-top-6 text-grayscale-950 rounded-md bg-grayscale-400 md:bg-inherit pl-8 pr-4 mt-4 md:pl-0 md:pr-0 md:m-0 md:flex md:flex-row text-right"
+                        class="absolute -right-1 md:-top-6 text-grayscale-950 rounded-md bg-grayscale-400 md:bg-inherit pl-12 pr-6 mt-4 md:pl-0 md:pr-0 md:m-0 md:flex md:flex-row text-right"
                     >
                         <li v-if="user.id">
                             <div class="flex flex-row md:p-4 py-2 gap-1">
@@ -40,7 +40,12 @@
                                 >
                             </div>
                         </li>
-                        <li v-else>
+                        <li v-if="!user.id">
+                            <a href="/register" class="md:p-4 py-2 block"
+                                >Register</a
+                            >
+                        </li>
+                        <li v-if="!user.id">
                             <a href="/login" class="md:p-4 py-2 block">Login</a>
                         </li>
                         <li>
