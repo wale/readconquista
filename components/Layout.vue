@@ -19,4 +19,22 @@ useHead({
     title: title.value,
     meta: [{ name: "description", content: description.value }],
 });
+
+const userStore = useAuthStore();
+const { user } = storeToRefs(userStore);
+
+const pollRefresh = async () => {
+    // eslint-disable-next-line no-useless-return
+    if (!user.value.id) return;
+    else {
+        const { requestState } = await userStore.refresh(
+            user.value.refreshToken,
+        );
+        if (requestState.error) throw requestState.error;
+    }
+};
+
+onMounted(() => {
+    setInterval(pollRefresh, 30_000); // poll refresh token API every 30s
+});
 </script>

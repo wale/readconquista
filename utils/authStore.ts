@@ -5,6 +5,11 @@ interface RequestState {
     error: Error | null;
 }
 
+interface RefreshState {
+    accessToken: string;
+    refreshToken: string;
+}
+
 interface UserState {
     id: string;
     username: string;
@@ -102,6 +107,36 @@ export const useAuthStore = defineStore("auth", {
                 requestState.loading = false;
                 requestState.error = error as Error;
                 return { data: {} as UserState, requestState };
+            }
+        },
+        async refresh(
+            refreshToken: string,
+        ): Promise<{ data: RefreshState; requestState: RequestState }> {
+            const requestState: RequestState = {
+                loading: true,
+                error: null,
+            };
+            try {
+                const data: RefreshState = await $fetch(
+                    "/api/auth/refresh",
+                    {
+                        method: "post",
+                        headers: { "Content-Type": "application/json" },
+                        body: {
+                            refreshToken,
+                        },
+                    },
+                );
+                requestState.loading = false;
+
+                this.user.refreshToken = data.refreshToken;
+                this.user.accessToken = data.accessToken;
+
+                return { data, requestState };
+            } catch (error) {
+                requestState.loading = false;
+                requestState.error = error as Error;
+                return { data: {} as RefreshState, requestState };
             }
         },
     },
