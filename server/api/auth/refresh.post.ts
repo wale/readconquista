@@ -21,19 +21,25 @@ export default defineEventHandler(async (event) => {
         runtimeConfig.jwtRefreshSecret,
     ) as jwt.JwtPayload;
 
+    if (new Date().getTime() > payload.exp!)
+        throw createError({
+            statusCode: 403,
+            statusMessage: "Forbidden: token is still valid",
+        });
+
     const savedRefreshToken = await findRefreshTokenById(payload.jti!);
 
     if (!savedRefreshToken || savedRefreshToken.revoked)
         throw createError({
             statusCode: 401,
-            statusMessage: "Unauthorized",
+            statusMessage: "Unauthorized: token revoked",
         });
 
     const hashedToken = hashToken(result.data.refreshToken);
     if (hashedToken !== savedRefreshToken.hashedToken)
         throw createError({
             statusCode: 401,
-            statusMessage: "Unauthorized",
+            statusMessage: "Unauthorized: refresh token mismatch",
         });
 
     const user = await db.user.findFirst({
@@ -45,7 +51,7 @@ export default defineEventHandler(async (event) => {
     if (!user)
         throw createError({
             statusCode: 401,
-            statusMessage: "Unauthorized",
+            statusMessage: "Unauthorized: user not found",
         });
 
     await deleteRefreshToken(savedRefreshToken.id);

@@ -117,16 +117,13 @@ export const useAuthStore = defineStore("auth", {
                 error: null,
             };
             try {
-                const data: RefreshState = await $fetch(
-                    "/api/auth/refresh",
-                    {
-                        method: "post",
-                        headers: { "Content-Type": "application/json" },
-                        body: {
-                            refreshToken,
-                        },
+                const data: RefreshState = await $fetch("/api/auth/refresh", {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: {
+                        refreshToken,
                     },
-                );
+                });
                 requestState.loading = false;
 
                 this.user.refreshToken = data.refreshToken;
