@@ -13,7 +13,14 @@ const protectRoute = async (event: H3Event, role: Role = Role.USER) => {
         });
 
     // Authorization: Bearer [jwt....]
-    const [, bearerToken] = authHeaders.split(" ");
+    const [authType, bearerToken] = authHeaders.split(" ");
+
+    if (authType !== "Bearer")
+        throw createError({
+            statusCode: 400,
+            statusMessage: "Malformed `Authorization` header.",
+        });
+
     const bearerVerified = jwt.verify(
         bearerToken,
         runtimeConfig.jwtAccessSecret,
