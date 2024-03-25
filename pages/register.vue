@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import { useAuthStore } from "~/utils/authStore";
+import { useAuthStore } from "~/store/auth";
 
 const userStore = useAuthStore();
 
