@@ -21,12 +21,6 @@ export default defineEventHandler(async (event) => {
         runtimeConfig.jwtRefreshSecret,
     ) as jwt.JwtPayload;
 
-    if (new Date().getTime() > payload.exp!)
-        throw createError({
-            statusCode: 403,
-            statusMessage: "Forbidden: token is still valid",
-        });
-
     const savedRefreshToken = await findRefreshTokenById(payload.jti!);
 
     if (!savedRefreshToken || savedRefreshToken.revoked)

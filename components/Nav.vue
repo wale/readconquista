@@ -40,6 +40,11 @@
                                 >
                             </div>
                         </li>
+                        <li v-if="user.id">
+                            <a href="/logout" class="md:p-4 py-2 block"
+                                >Logout</a
+                            >
+                        </li>
                         <li v-if="!user.id">
                             <a href="/register" class="md:p-4 py-2 block"
                                 >Register</a
@@ -70,7 +75,7 @@
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
-import { useAuthStore } from "~/utils/authStore";
+import { useAuthStore } from "~/store/auth";
 
 const show = ref(false);
 

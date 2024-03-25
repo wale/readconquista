@@ -23,7 +23,7 @@ export function generateRefreshToken(user: User, jti: string) {
         },
         runtimeConfig.jwtRefreshSecret,
         {
-            expiresIn: "8h",
+            expiresIn: "24h",
         },
     );
 }

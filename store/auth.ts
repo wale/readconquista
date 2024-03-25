@@ -74,10 +74,28 @@ export const useAuthStore = defineStore("auth", {
             return { data: {} as UserState, requestState };
         },
 
-        async logout() {
-            await revokeTokensByIdentifier({ email: this.user.email });
+        async logout(): Promise<{ requestState: RequestState }> {
+            const requestState: RequestState = {
+                loading: true,
+                error: null,
+            };
 
-            this.user = {} as UserState;
+            try {
+                await $fetch("/api/auth/logout", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${this.user.accessToken}`,
+                    },
+                });
+                requestState.loading = false;
+                this.user = {} as UserState;
+                return { requestState };
+            } catch (error) {
+                requestState.loading = false;
+                requestState.error = error as Error;
+                return { requestState };
+            }
         },
 
         async register(
@@ -137,4 +155,5 @@ export const useAuthStore = defineStore("auth", {
             }
         },
     },
+    persist: true,
 });

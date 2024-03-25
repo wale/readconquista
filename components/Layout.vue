@@ -8,8 +8,6 @@
 </template>
 
 <script setup lang="ts">
-import { useIntervalFn } from "@vueuse/core";
-
 const props = defineProps<{
     title: string;
     description: string;
@@ -22,17 +20,13 @@ useHead({
     meta: [{ name: "description", content: description.value }],
 });
 
-const userStore = useAuthStore();
-const { user } = storeToRefs(userStore);
+const interval = ref();
 
-useIntervalFn(async () => {
-    // eslint-disable-next-line no-useless-return
-    if (!user.value.id) return;
-    else {
-        const { requestState } = await userStore.refresh(
-            user.value.refreshToken,
-        );
-        if (requestState.error) throw requestState.error;
-    }
-}, 300_000); // update every 5 minutes when logged in
+onMounted(() => {
+    interval.value = refreshInterval();
+});
+
+onBeforeUnmount(() => {
+    window.clearTimeout(interval.value);
+});
 </script>
