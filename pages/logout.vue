@@ -53,4 +53,8 @@ const logout = async () => {
 const cancelLogout = async () => {
     await router.push("/");
 };
+
+definePageMeta({
+    middleware: ["auth"],
+});
 </script>
