@@ -8,5 +8,4 @@ export default defineNuxtRouteMiddleware((to) => {
     if (to.fullPath === "/login" && user.value.id) return navigateTo("/");
 
     if (!user.value.id) return navigateTo("/login");
-    else return navigateTo(to.fullPath);
 });
