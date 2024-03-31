@@ -9,7 +9,36 @@ In cities such as Melbourne, most public libraries are not run by a city governm
 The source code of the Readconquista site itself is written with [NuxtJS 3](https://nuxt.com) & [TailwindCSS](https://tailwindcss.com).
 
 ## Roadmap
-[to be announced]
+The checklist below is temporary, until a board can be setup.
+
+- [ ] User authentication
+
+    - [x] Can register/login
+
+    - [ ] Can edit account (change e-mail/username/password)
+
+    - [ ] Can delete account
+
+    - [ ] Can edit pages
+    
+    - [ ] Administration
+    
+        - [ ] Can edit accounts
+
+        - [ ] Can remove accounts
+
+        - [ ] Can assign roles
+
+        - [ ] Can add libraries
+
+        - [ ] Can add public library services
+
+- [ ] Interactive map
+
+   - [ ] Toggle for library services
+   
+   - [ ] Toggle for local government areas
+
 
 ## License
 The source included in this project is licensed under the [Zlib license](https://codeberg.org/wale/readconquista/src/branch/main/LICENSE), due to technological and legal restrictions on certain packages and source included in this project.
