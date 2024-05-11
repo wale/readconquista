@@ -30,8 +30,8 @@ dependencies:
     specifier: ^9.0.2
     version: 9.0.2
   libpg-query:
-    specifier: https://github.com/wale/libpg-query-node#6740b73
-    version: github.com/wale/libpg-query-node/6740b73
+    specifier: 16.2.0
+    version: 16.2.0
   nuxt:
     specifier: ^3.10.2
     version: 3.11.2(@opentelemetry/api@1.8.0)(@unocss/reset@0.60.0)(eslint@8.57.0)(floating-vue@5.2.2)(typescript@5.4.5)(unocss@0.60.0)(vite@5.2.11)
@@ -60,7 +60,7 @@ devDependencies:
     version: 1.7.0
   '@ts-safeql/eslint-plugin':
     specifier: ^2.0.3
-    version: 2.0.3(eslint@8.57.0)(libpg-query@16.0.0)(typescript@5.4.5)
+    version: 2.0.3(eslint@8.57.0)(libpg-query@16.2.0)(typescript@5.4.5)
   '@types/jsonwebtoken':
     specifier: ^9.0.5
     version: 9.0.6
@@ -478,6 +478,11 @@ packages:
     dependencies:
       mime: 3.0.0
     dev: false
+
+  /@emnapi/runtime@0.43.1:
+    resolution: {integrity: sha512-Q5sMc4Z4gsD4tlmlyFu+MpNAwpR7Gv2errDhVJ+SOhNjWcx8UTqy+hswb8L31RfC8jBvDgcnT87l3xI2w08rAg==}
+    dependencies:
+      tslib: 2.6.2
 
   /@esbuild/aix-ppc64@0.20.2:
     resolution: {integrity: sha512-D+EBOJHXdNZcLJRBkhENNG8Wji2kgc9AZ9KiPr1JuZjsNtyHzrsfLRrY0tk2H2aoFu6RANO1y1iPPUCDYWkb5g==}
@@ -2155,7 +2160,7 @@ packages:
     engines: {node: '>=10.13.0'}
     requiresBuild: true
 
-  /@ts-safeql/eslint-plugin@2.0.3(eslint@8.57.0)(libpg-query@16.0.0)(typescript@5.4.5):
+  /@ts-safeql/eslint-plugin@2.0.3(eslint@8.57.0)(libpg-query@16.2.0)(typescript@5.4.5):
     resolution: {integrity: sha512-sMvq8hjBY5leWhq5/j+bJ432aWJO1RGaQup3v9FtfCwgvkgWudSaJ7PoDe1SU4kO2bolkdj4ZQPexRc5MTZTrQ==}
     peerDependencies:
       libpg-query: '>=13.2.5'
@@ -2167,7 +2172,7 @@ packages:
       chokidar: 3.6.0
       esbuild: 0.17.17
       fp-ts: 2.16.5
-      libpg-query: github.com/wale/libpg-query-node/6740b73
+      libpg-query: 16.2.0
       pg-connection-string: 2.5.0
       postgres: 3.4.4
       recast: 0.22.0
@@ -6106,6 +6111,18 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
+  /libpg-query@16.2.0:
+    resolution: {integrity: sha512-quviVdvqHPxQNhHKOHzc4XhIF/29TAwYPTfnNralWdWWORBCFI+m70cN3FeOEdTn/ndp83PBnok3+Tt7ofUjnw==}
+    requiresBuild: true
+    dependencies:
+      '@emnapi/runtime': 0.43.1
+      '@mapbox/node-pre-gyp': 1.0.11
+      node-addon-api: 7.1.0
+      node-gyp: 10.1.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
     engines: {node: '>=10'}
@@ -6612,9 +6629,6 @@ packages:
       semver: 7.6.2
     dev: true
     optional: true
-
-  /node-addon-api@1.7.2:
-    resolution: {integrity: sha512-ibPK3iA+vaY1eEjESkQkM0BbCqFOaZMiXRTtdB0u7b4djtY6JnsjvPdUHVMg6xQt3B8fpTTWHI9A+ADjM9frzg==}
 
   /node-addon-api@6.1.0:
     resolution: {integrity: sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA==}
@@ -8718,7 +8732,6 @@ packages:
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
-    dev: true
 
   /tsutils@3.21.0(typescript@5.4.5):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
@@ -9639,16 +9652,3 @@ packages:
 
   /zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
-
-  github.com/wale/libpg-query-node/6740b73:
-    resolution: {tarball: https://codeload.github.com/wale/libpg-query-node/tar.gz/6740b73}
-    name: libpg-query
-    version: 16.0.0
-    requiresBuild: true
-    dependencies:
-      '@mapbox/node-pre-gyp': 1.0.11
-      node-addon-api: 1.7.2
-      node-gyp: 10.1.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
